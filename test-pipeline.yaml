@@ -74,7 +74,6 @@ spec:
               #mkdir -p scripts
               #echo "$BUILD_DIR"
               #ssh $SSH_ARGS "$SSH_HOST"  mkdir -p "$BUILD_DIR/workspaces" "$BUILD_DIR/scripts" "$BUILD_DIR/tmp"
-
               ######
 
               dnf install -y jq openssh-clients
@@ -98,6 +97,7 @@ spec:
               echo -e remote arch is: $REMOTE_ARCH
               echo "Running Test..."
 
+
               OSR=$(ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "cat /etc/os-release")
               echo -e $OSR
 
@@ -109,7 +109,7 @@ spec:
               ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "find /usr/bin"
 
               # execute container on remote host
-
+              sleep 20m
 
               if [ "$OUTPUT" = 'Hello World!' ]; then
                 RESULT="SUCCESS"
