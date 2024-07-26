@@ -67,6 +67,8 @@ spec:
               fi
               chmod 0400 ~/.ssh/id_rsa
               export SSH_HOST=$(cat /ssh/host)
+              declare -p SSH_HOST
+              cat /ssh/user-dir
               # export BUILD_DIR=$(cat /ssh/user-dir)
               export SSH_ARGS="-o StrictHostKeyChecking=no"
               #mkdir -p scripts
@@ -103,6 +105,8 @@ spec:
               ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "df -h"
               ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "free -m"
               ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "find /etc"
+              ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "command -v podman"
+              ssh $SSH_ARGS "$SSH_HOST" /bin/bash -c "find /usr/bin"
 
               # execute container on remote host
 
