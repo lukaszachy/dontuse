@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tf-scheduler
+spec:
+  description: TODO
+  results:
+    - name: TEST_OUTPUT
+  steps:
+    - name: scheduler
+      image: quay.io/fedora/fedora:latest           
+      script: |
+            #!/usr/bin/env bash
+            echo -n '{"result":"FAILURE","timestamp":"2024-08-19T14:26:13+00:00","failures":0,"successes":0,"warnings":0}' > $(results.TEST_OUTPUT.path)

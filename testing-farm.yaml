@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: tmt-via-testing-farm
+spec:
+  description: >-
+    TODO
+  params:
+    - name: SNAPSHOT
+      description: A list of container images that should undergo testing
+
+  results:
+    - name: REQUEST_URL
+      value: "$(tasks.scheduler.results.tf-request)"
+    - name: TEST_OUTPUT
+      value: "$(tasks.wait-for-results.results.TEST_OUTPUT)"
+  tasks:
+    - name: scheduler
+      timeout: "5m"
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/lukaszachy/dontuse
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/scheduler.yaml
+    - name: wait-for-results
+      runAfter:
+      - scheduler
+      timeout: "5h"
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/lukaszachy/dontuse
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/wait-for-results.yaml

@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tf-scheduler
+spec:
+  description: TODO
+  results:
+    - name: tf-request
+  steps:
+    - name: scheduler
+      image: quay.io/fedora/fedora:latest           
+      script: |
+            #!/usr/bin/env bash
+            echo -n "http://localhost" > $(results.tf-request.path)
